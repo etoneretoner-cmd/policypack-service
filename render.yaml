@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: policypack
+    runtime: python
+    plan: free
+    buildCommand: "echo stdlib-only-no-build"
+    startCommand: "python3 -m policypack.api"
