@@ -55,6 +55,23 @@ shared budget), `word_bits` (overflow-envelope check, e.g. 8).
 a shopping agent lints its (contradictory) rules, shops, then tries a
 1 800-unit runaway spree and gets stopped by the budget at the policy layer.
 
+## Regression tests
+
+A frozen regression suite lives in `tests/run_regression.py` (stdlib only):
+
+```
+python3 tests/run_regression.py
+```
+
+It freezes the golden verdicts from the RuleLab packs (lint conflicts and
+dead rules for the 3 naive + 3 integrated packs), the published demo's
+authorize sequence (spree stopped at 170 of a 192 budget, remaining 22),
+plus shared-pool budget, freeze latch and velocity cases — against the
+engine directly, the REST API, and an MCP stdio smoke test (4 tools).
+Exit code is non-zero if any case fails. **Re-run it after any change to
+the engine or the API/MCP layers; if a case fails, fix the engine — never
+edit an expectation to match a regression.**
+
 Formal-proof note: the lint diagnostics for the base rule family are the
 same ones verified against Tau Language 0.8.0 in RuleLab (three packs,
 scenario matrix 19/19). The service computes them structurally, in real
